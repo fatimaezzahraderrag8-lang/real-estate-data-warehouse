@@ -1,49 +1,49 @@
-# 🥉 Bronze Layer
+# 🥉 Couche Bronze
 
-The **Bronze Layer** is the first stage of the Medallion Architecture. It stores the raw real estate data exactly as received from the source without any transformations. This layer ensures complete data traceability and serves as the foundation for all downstream processing.
-
----
-
-## 📥 Data Source
-
-- Source File: `real-estate-raw.csv`
-- Format: CSV
-- Loaded using: `python/load_bronze.py`
+La **Couche Bronze** constitue la première étape de l’architecture **Medallion**. Elle stocke les données immobilières brutes exactement telles qu’elles sont reçues depuis la source, sans aucune transformation. Cette couche garantit une traçabilité complète des données et sert de base pour tous les traitements ultérieurs.
 
 ---
 
-## ⚙️ Processing Steps
+## 📥 Source des données
 
-The Bronze ingestion process performs the following operations:
-
-1. Read the raw CSV dataset.
-2. Connect to Snowflake.
-3. Create the **BRONZE** schema (if it does not already exist).
-4. Create the `RAW_LISTINGS` table.
-5. Load the raw data into Snowflake.
-6. Add a metadata column named `_loaded_at` to record the loading timestamp.
+* Fichier source : `real-estate-raw.csv`
+* Format : CSV
+* Chargement effectué par : `python/load_bronze.py`
 
 ---
 
-## 🏗️ Bronze Architecture
+## ⚙️ Étapes de traitement
+
+Le processus d’ingestion de la couche Bronze réalise les opérations suivantes :
+
+1. Lecture du jeu de données CSV brut.
+2. Connexion à Snowflake.
+3. Création du schéma **BRONZE** (s’il n’existe pas déjà).
+4. Création de la table `RAW_LISTINGS`.
+5. Chargement des données brutes dans Snowflake.
+6. Ajout d’une colonne de métadonnées nommée `_loaded_at` afin d’enregistrer la date et l’heure du chargement.
+
+---
+
+## 🏗️ Architecture Bronze
 
 ```text
           real-estate-raw.csv
                    │
                    ▼
-      Python Script (load_bronze.py)
+      Script Python (load_bronze.py)
                    │
                    ▼
-        Snowflake BRONZE Schema
+      Schéma BRONZE dans Snowflake
                    │
                    ▼
              RAW_LISTINGS
-         + _loaded_at Metadata
+      + Métadonnée _loaded_at
 ```
 
 ---
 
-## 📂 Files Used
+## 📂 Fichiers utilisés
 
 ```text
 python/
@@ -56,39 +56,39 @@ dags/
 
 ---
 
-## 📋 Bronze Table
+## 📋 Table Bronze
 
-**Table Name**
+**Nom de la table**
 
-```
+```text
 BRONZE.RAW_LISTINGS
 ```
 
-### Main Columns
+### Colonnes principales
 
-- listing_id
-- property_type
-- country
-- city
-- neighborhood
-- surface_m2
-- num_rooms
-- num_bathrooms
-- floor
-- year_built
-- price
-- listing_date
-- condition
-- heating_type
-- parking
-- energy_rating
-- _loaded_at
+* listing_id
+* property_type
+* country
+* city
+* neighborhood
+* surface_m2
+* num_rooms
+* num_bathrooms
+* floor
+* year_built
+* price
+* listing_date
+* condition
+* heating_type
+* parking
+* energy_rating
+* _loaded_at
 
 ---
 
-## ✅ Bronze Layer Output
+## ✅ Résultat de la Couche Bronze
 
-- Raw data preserved without modification.
-- Complete data traceability.
-- Metadata added for audit purposes.
-- Ready for transformation in the Silver Layer.
+* Conservation des données brutes sans modification.
+* Traçabilité complète des données.
+* Ajout de métadonnées à des fins d’audit et de suivi.
+* Données prêtes à être transformées dans la **Couche Silver**.
